@@ -35,8 +35,12 @@
                             "text": "Non ha senso"
                         },
                         {
-                            "id": 3,
-                            "text": "la lettera è sigillata con la ceralacca"
+                            "id": 2,
+                            "text": "E' una chiave di rame antica"
+                        },
+                        {
+                            "id": 4,
+                            "text": "E' una chiave di rame antica"
                         }
                     ],
                     "comb": 0
@@ -50,6 +54,7 @@
             "chiudi",
             "osserva",
             "combina",
+            "raccogli",
             "usa"
         ]
     }
