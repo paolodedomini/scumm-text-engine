@@ -1,0 +1,23 @@
+[
+    {
+        "room1": {
+            "text": "Trovi una lettera* sotto la porta",
+            "keys": [
+                {
+                    "parola": "lettera",
+                    "desc": "la lettera è sigillata con la ceralacca",
+                    "azione": {
+                        "id": 0,
+                    },
+                    "comb": 0
+                }
+            ]
+        }
+    },
+    {
+        "azioni": [
+            "apri",
+            "chiudi"
+        ]
+    }
+]
