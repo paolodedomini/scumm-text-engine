@@ -1,14 +1,44 @@
 [
     {
         "room1": {
-            "text": "Trovi una lettera* sotto la porta",
+            "text": "Trovi una lettera* sotto la porta*, sotto la lettera una chiave*",
             "keys": [
                 {
+                    "id": 0,
                     "parola": "lettera",
-                    "desc": "la lettera è sigillata con la ceralacca",
-                    "azione": {
-                        "id": 0,
-                    },
+                    "azione": [
+                        {
+                            "id": 0,
+                            "text": "Nella lettera c'è solo una sequenza di numeri"
+                        },
+                        {
+                            "id": 1,
+                            "text": "Meglio tenere aperta la lettera"
+                        },
+                        {
+                            "id": 3,
+                            "text": "la lettera è sigillata con la ceralacca"
+                        }
+                    ],
+                    "comb": 0
+                },
+                {
+                    "id": 1,
+                    "parola": "chiave",
+                    "azione": [
+                        {
+                            "id": 0,
+                            "text": "Non ha senso"
+                        },
+                        {
+                            "id": 1,
+                            "text": "Non ha senso"
+                        },
+                        {
+                            "id": 3,
+                            "text": "la lettera è sigillata con la ceralacca"
+                        }
+                    ],
                     "comb": 0
                 }
             ]
@@ -17,7 +47,10 @@
     {
         "azioni": [
             "apri",
-            "chiudi"
+            "chiudi",
+            "osserva",
+            "combina",
+            "usa"
         ]
     }
 ]
