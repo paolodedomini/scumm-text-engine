@@ -1,0 +1,28 @@
+[
+    {
+        "room1": {
+            "text": "Trovi una <lettera> sigillata con la borra",
+            "keys": [
+                {
+                    "id": 0,
+                    "parola": "lettera",
+                    "azione": [
+                        {
+                            "id": 0,
+                            "text": "Nella lettera c'è solo una sequenza di numeri"
+                        },
+                        {
+                            "id": 1,
+                            "text": "Meglio tenere aperta la lettera"
+                        },
+                        {
+                            "id": 3,
+                            "text": "la lettera è sigillata con la ceralacca"
+                        }
+                    ],
+                    "comb": 0
+                }
+            ]
+        }
+    }
+]
