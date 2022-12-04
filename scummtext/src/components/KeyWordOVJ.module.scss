@@ -1,0 +1,21 @@
+span.keywordTxt {
+  position: relative;
+  &.open {
+  }
+}
+.underline {
+  position: absolute;
+  top: 0px;
+  overflow: hidden;
+  padding-bottom: 100%;
+  height: auto;
+  width: 160%;
+  left: -14px;
+  top: -2px;
+  .svg-content {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

@@ -15,6 +15,7 @@ export default function Room1() {
         in terra vedi una <KeyWordOBJ option={{ id: "10" }}>lettera</KeyWordOBJ>
         , una vecchia chiave di rame appoggiata sulla busta bianca.
       </p>
+      <p>lorem</p>
     </RoomLayout>
   );
 }
