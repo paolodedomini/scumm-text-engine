@@ -4,18 +4,19 @@ span.keywordTxt {
   }
 }
 .underline {
+  display: inline-block;
+  border-bottom: 2px solid rgb(30, 30, 117);
   position: absolute;
-  top: 0px;
-  overflow: hidden;
-  padding-bottom: 100%;
-  height: auto;
-  width: 160%;
-  left: -14px;
-  top: -2px;
-  .svg-content {
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    left: 0;
+  left: 0;
+  bottom: 0;
+  animation: underline 1s forwards;
+}
+
+@keyframes underline {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
   }
 }

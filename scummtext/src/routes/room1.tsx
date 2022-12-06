@@ -13,7 +13,9 @@ export default function Room1() {
         all'ingresso, attendi qualche secondo e alla fine decidi di girare la
         chiave e aprire. Fuori è freddo e non c'è nessuno. Abbassi lo sguardo e
         in terra vedi una <KeyWordOBJ option={{ id: "10" }}>lettera</KeyWordOBJ>
-        , una vecchia chiave di rame appoggiata sulla busta bianca.
+        , una vecchia{" "}
+        <KeyWordOBJ option={{ id: "2" }}>chiave di rame</KeyWordOBJ> appoggiata
+        sulla busta bianca.
       </p>
       <p>lorem</p>
     </RoomLayout>
