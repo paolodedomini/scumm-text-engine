@@ -7,13 +7,20 @@ const ContextData = ({ children }: any) => {
   const [oggettoInInventario, setOggettoInInventario] = useState<TypeInventory>(
     {}
   );
+
   const [inventory, setInventory] = useState<TypeInventory[]>([]);
+
+  const [oggettoSelezionato, setOggettoSelezionato] = useState<TypeInventory>(
+    {}
+  );
 
   const dataToShare: TypeData = {
     data: {
       inventory: inventory,
       oggettoInInventario: oggettoInInventario,
       setOggettoInInventario: setOggettoInInventario,
+      oggettoSelezionato: oggettoSelezionato,
+      setOggettoSelezionato: setOggettoSelezionato,
     },
   };
 

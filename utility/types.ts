@@ -6,6 +6,8 @@ type TypeDataToShare = {
     inventory: TypeInventory[];
     oggettoInInventario: TypeInventory;
     setOggettoInInventario: React.Dispatch<React.SetStateAction<TypeInventory>>;
+    oggettoSelezionato: TypeInventory;
+    setOggettoSelezionato: React.Dispatch<React.SetStateAction<TypeInventory>>;
 };
 type TypeData = {
     data: TypeDataToShare;

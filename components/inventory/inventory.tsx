@@ -1,11 +1,26 @@
 import React from "react";
 import { ShareContext } from "@/context/context";
 import { useContext } from "react";
+import { TypeInventory } from "@/utility/types";
 type Props = {};
 function Inventory({}: Props) {
   const dataFromContext = useContext(ShareContext);
   const dataInventory = dataFromContext?.data.inventory;
-  return <div>{dataInventory != undefined && dataInventory[0]?.id}</div>;
+  const setOggettoSelezionato = dataFromContext?.data.setOggettoSelezionato as (
+    oggetto: TypeInventory
+  ) => void;
+  return (
+    <div>
+      {dataInventory != undefined &&
+        dataInventory.map((item) => {
+          return (
+            <div key={item.id} onClick={() => setOggettoSelezionato(item)}>
+              {item.name}
+            </div>
+          );
+        })}
+    </div>
+  );
 }
 
 export default Inventory;

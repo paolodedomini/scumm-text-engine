@@ -16,9 +16,15 @@ const IntroScene = (props: Props) => {
 
   console.log(dataFromContext?.data.inventory);
 
-  //isInInventory()
   function aproPorta() {
-    if (dataFromContext?.data.inventory) {
+    const isObjectIn = isInInventory(
+      dataFromContext?.data.inventory ? dataFromContext?.data.inventory : [],
+      dataFromContext?.data.oggettoSelezionato
+        ? dataFromContext?.data.oggettoSelezionato
+        : {}
+    );
+
+    if (isObjectIn) {
       setOggettoInTesto(true);
     } else {
       setOggettoInTesto(false);
