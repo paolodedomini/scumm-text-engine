@@ -9,6 +9,8 @@ function Inventory({}: Props) {
   const setOggettoSelezionato = dataFromContext?.data.setOggettoSelezionato as (
     oggetto: TypeInventory
   ) => void;
+  console.log("test");
+
   return (
     <div>
       {dataInventory != undefined &&

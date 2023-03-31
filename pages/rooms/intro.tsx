@@ -3,6 +3,7 @@ import { ShareContext } from "@/context/context";
 import { useContext } from "react";
 import { isInInventory } from "@/utility/functions";
 import { TypeData, TypeInventory } from "@/utility/types";
+import Take from "@/components/take";
 
 type Props = {};
 
@@ -12,38 +13,36 @@ const IntroScene = (props: Props) => {
 
   const room = {
     name: "intro",
+    chiave_porta: {
+      id: "key_01",
+      name: "una chiave",
+    },
+    sega_fagiana: {
+      id: "key_02",
+      name: "una bella sega fagiana",
+    },
   };
 
-  console.log(dataFromContext?.data.inventory);
-
-  function aproPorta() {
+  function apro() {
     const isObjectIn = isInInventory(
       dataFromContext?.data.inventory ? dataFromContext?.data.inventory : [],
-      dataFromContext?.data.oggettoSelezionato
-        ? dataFromContext?.data.oggettoSelezionato
-        : {}
+      dataFromContext?.data.oggettoSelezionato.id
+        ? dataFromContext?.data.oggettoSelezionato.id
+        : ""
     );
-
     if (isObjectIn) {
       setOggettoInTesto(true);
     } else {
       setOggettoInTesto(false);
     }
-  }
-
-  function prendoChiave() {
-    dataFromContext?.data.setOggettoInInventario({
-      id: "key_01",
-      name: "una chiave",
-    });
+    console.log(dataFromContext?.data.inventory);
   }
 
   return (
     <div>
-      <span className="A" onClick={() => prendoChiave()}>
-        una chiave
-      </span>
-      <span className="B" onClick={() => aproPorta()}>
+      <Take testo="una chiave" oggetto={room.chiave_porta} />
+      <Take testo="una sega fagiana" oggetto={room.sega_fagiana} />
+      <span className="B" onClick={() => apro()}>
         una porta
       </span>{" "}
       {oggettoInTesto ? <span>aperta</span> : <span>chiusa</span>}
