@@ -4,12 +4,12 @@ import { useContext } from "react";
 import { isInInventory } from "@/utility/functions";
 import { TypeData, TypeInventory } from "@/utility/types";
 import Take from "@/components/take";
+import Open from "@/components/open";
 
 type Props = {};
 
 const IntroScene = (props: Props) => {
   const dataFromContext = useContext<TypeData | null>(ShareContext);
-  const [oggettoInTesto, setOggettoInTesto] = useState(false);
 
   const room = {
     name: "intro",
@@ -17,35 +17,34 @@ const IntroScene = (props: Props) => {
       id: "key_01",
       name: "una chiave",
     },
-    sega_fagiana: {
+    sburro: {
       id: "key_02",
-      name: "una bella sega fagiana",
+      name: "Panetto di sburro Prealpi",
+    },
+    merda: {
+      id: "key_03",
+      name: "merda fresca di giornata",
     },
   };
 
-  function apro() {
-    const isObjectIn = isInInventory(
-      dataFromContext?.data.inventory ? dataFromContext?.data.inventory : [],
-      dataFromContext?.data.oggettoSelezionato.id
-        ? dataFromContext?.data.oggettoSelezionato.id
-        : ""
-    );
-    if (isObjectIn) {
-      setOggettoInTesto(true);
-    } else {
-      setOggettoInTesto(false);
-    }
-    console.log(dataFromContext?.data.inventory);
-  }
-
   return (
     <div>
-      <Take testo="una chiave" oggetto={room.chiave_porta} />
-      <Take testo="una sega fagiana" oggetto={room.sega_fagiana} />
-      <span className="B" onClick={() => apro()}>
-        una porta
-      </span>{" "}
-      {oggettoInTesto ? <span>aperta</span> : <span>chiusa</span>}
+      Finalmente è domenica e stai preparando i pancake per la colazione. <br />{" "}
+      Hai già pronto sul tavolo{" "}
+      <Take testo="dello sburro" oggetto={room.sburro} />{" "}
+      <Take testo="della merda" oggetto={room.merda} />{" "}
+      <Open
+        chiave="key_02"
+        testoClose="ed un pancake fumante"
+        testoOpen="imburrato e pronto per essere mangiato, lo divori in un attimo."
+        enigma="enigma1"
+      />
+      <Open
+        chiave="key_03"
+        testoClose="adesso manca solo assaggiare la merda"
+        testoOpen="Ottima anche quella"
+        dipendenza={["enigma1"]}
+      />
     </div>
   );
 };

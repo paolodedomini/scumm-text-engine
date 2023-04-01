@@ -13,6 +13,7 @@ const ContextData = ({ children }: any) => {
   const [oggettoSelezionato, setOggettoSelezionato] = useState<TypeInventory>(
     {}
   );
+  const [enigmiRisolti, setEnigmiRisolti] = useState<string[]>([]);
 
   const dataToShare: TypeData = {
     data: {
@@ -21,6 +22,8 @@ const ContextData = ({ children }: any) => {
       setOggettoInInventario: setOggettoInInventario,
       oggettoSelezionato: oggettoSelezionato,
       setOggettoSelezionato: setOggettoSelezionato,
+      enigmiRisolti: enigmiRisolti,
+      setEnigmiRisolti: setEnigmiRisolti,
     },
   };
 

@@ -8,6 +8,8 @@ type TypeDataToShare = {
     setOggettoInInventario: React.Dispatch<React.SetStateAction<TypeInventory>>;
     oggettoSelezionato: TypeInventory;
     setOggettoSelezionato: React.Dispatch<React.SetStateAction<TypeInventory>>;
+    enigmiRisolti: string[];
+    setEnigmiRisolti: React.Dispatch<React.SetStateAction<string[]>>;
 };
 type TypeData = {
     data: TypeDataToShare;
