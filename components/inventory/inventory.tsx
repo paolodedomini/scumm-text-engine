@@ -5,23 +5,35 @@ import { TypeInventory } from "@/utility/types";
 type Props = {};
 function Inventory({}: Props) {
   const dataFromContext = useContext(ShareContext);
-  const dataInventory = dataFromContext?.data.inventory;
-  const setOggettoSelezionato = dataFromContext?.data.setOggettoSelezionato as (
-    oggetto: TypeInventory
-  ) => void;
-  console.log("test");
+  const dataInventory = dataFromContext?.data?.inventory;
+  const oggettoSelezionato = dataFromContext?.data?.oggettoSelezionato;
+  console.log("test", dataInventory?.length);
 
   return (
-    <div>
+    <ul className="inventario">
       {dataInventory != undefined &&
+        dataInventory?.length > 0 &&
         dataInventory.map((item) => {
+          console.log("puppa", dataFromContext);
+
           return (
-            <div key={item.id} onClick={() => setOggettoSelezionato(item)}>
-              {item.name}
-            </div>
+            <li
+              className={`${
+                item.id === oggettoSelezionato?.id ? "selected" : ""
+              }`}
+              key={item.id}
+              onClick={() =>
+                dataFromContext?.dispatch({
+                  type: "setOggettoSelezionato",
+                  payload: item,
+                })
+              }
+            >
+              {item?.name}
+            </li>
           );
         })}
-    </div>
+    </ul>
   );
 }
 

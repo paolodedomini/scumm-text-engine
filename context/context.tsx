@@ -1,50 +1,88 @@
-import type { TypeData, TypeInventory } from "@/utility/types";
-import React, { createContext, useEffect, useState } from "react";
+import {
+  type DataApp,
+  type TypeInventory,
+  type TypeDataToShare,
+} from "@/utility/types";
 
-const ShareContext = createContext<TypeData | null>(null);
+import React, { createContext, useEffect, useReducer, useState } from "react";
+
+const ShareContext = createContext<DataApp | null>(null);
 
 const ContextData = ({ children }: any) => {
-  const [oggettoInInventario, setOggettoInInventario] = useState<TypeInventory>(
-    {}
-  );
+  function reducer(state: any, action: { type: string; payload: any | null }) {
+    switch (action.type) {
+      case "setInventory": {
+        console.log("action", action.payload);
 
-  const [inventory, setInventory] = useState<TypeInventory[]>([]);
+        const filterInventory = () => {
+          if (!state?.inventory?.length) {
+            return [action.payload];
+          } else {
+            const filteredInventory = state.inventory.filter(
+              (item: TypeInventory) => item?.id !== action.payload?.id
+            );
+            return [...filteredInventory, action.payload];
+          }
+        };
 
-  const [oggettoSelezionato, setOggettoSelezionato] = useState<TypeInventory>(
-    {}
-  );
-  const [enigmiRisolti, setEnigmiRisolti] = useState<string[]>([]);
+        return { ...state, inventory: filterInventory() };
+      }
+      case "setOggettoSelezionato": {
+        console.log("oggetto selezionato", action.payload);
 
-  const dataToShare: TypeData = {
-    data: {
-      inventory: inventory,
-      oggettoInInventario: oggettoInInventario,
-      setOggettoInInventario: setOggettoInInventario,
-      oggettoSelezionato: oggettoSelezionato,
-      setOggettoSelezionato: setOggettoSelezionato,
-      enigmiRisolti: enigmiRisolti,
-      setEnigmiRisolti: setEnigmiRisolti,
-    },
+        return { ...state, oggettoSelezionato: action.payload };
+      }
+      case "setEnigmiRisolti": {
+        return {
+          ...state,
+          enigmiRisolti: [...state.enigmiRisolti, action.payload],
+        };
+      }
+      default: {
+        return state;
+      }
+    }
+  }
+  const initialState: TypeDataToShare = {
+    inventory: [],
+    oggettoSelezionato: {},
+    enigmiRisolti: [],
   };
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const [dataLocalStorage, setDataLocalStorage] = useState<TypeDataToShare>({});
 
   useEffect(() => {
-    if (oggettoInInventario.id) {
-      setInventory((prev) => {
-        if (!prev.length) {
-          return [oggettoInInventario];
-        } else {
-          const filteredInventory = prev.filter(
-            (item) => item.id !== oggettoInInventario.id
-          );
-          return [...filteredInventory, oggettoInInventario];
-        }
-      });
+    if (state.oggettoInInventario?.id) {
+      dispatch({ type: "setInventory", payload: state.oggettoInInventario });
     }
-  }, [oggettoInInventario]);
+  }, [state.oggettoInInventario]);
+
+  useEffect(() => {
+    if (window !== undefined) {
+      const isDataInLocalStorage = localStorage.getItem("data");
+      if (isDataInLocalStorage) {
+        setDataLocalStorage(JSON.parse(isDataInLocalStorage));
+      } else {
+        setDataLocalStorage(state);
+        localStorage.setItem("data", JSON.stringify(dataLocalStorage));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    setDataLocalStorage(state);
+    localStorage.setItem("data", JSON.stringify(dataLocalStorage));
+  }, [
+    dataLocalStorage.enigmiRisolti,
+    dataLocalStorage.inventory,
+    dataLocalStorage.oggettoInInventario,
+    dataLocalStorage.oggettoSelezionato,
+  ]);
 
   //provider che wrappa i componenti che devono ricevere i dati
   return (
-    <ShareContext.Provider value={dataToShare}>
+    <ShareContext.Provider value={{ data: state, dispatch: dispatch }}>
       {children}
     </ShareContext.Provider>
   );

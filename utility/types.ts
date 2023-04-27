@@ -3,17 +3,21 @@ type TypeInventory = {
     name?: string;
 };
 type TypeDataToShare = {
-    inventory: TypeInventory[];
-    oggettoInInventario: TypeInventory;
-    setOggettoInInventario: React.Dispatch<React.SetStateAction<TypeInventory>>;
-    oggettoSelezionato: TypeInventory;
-    setOggettoSelezionato: React.Dispatch<React.SetStateAction<TypeInventory>>;
-    enigmiRisolti: string[];
-    setEnigmiRisolti: React.Dispatch<React.SetStateAction<string[]>>;
+    inventory?: TypeInventory[];
+    oggettoInInventario?: TypeInventory;
+    oggettoSelezionato?: TypeInventory;
+    enigmiRisolti?: string[];
+
 };
-type TypeData = {
+
+type DataApp = {
     data: TypeDataToShare;
+    dispatch: React.Dispatch<any>;
 };
 
+type TypeHooks = {
+    setOggettoSelezionato: React.Dispatch<React.SetStateAction<TypeInventory>>;
+    setEnigmiRisolti: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
-export type { TypeData, TypeDataToShare, TypeInventory };
+export type { DataApp, TypeDataToShare, TypeInventory, TypeHooks };

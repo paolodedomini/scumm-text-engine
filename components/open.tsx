@@ -2,63 +2,56 @@ import { TypeInventory } from "@/utility/types";
 import React, { useState } from "react";
 import { ShareContext } from "@/context/context";
 import { useContext } from "react";
-import { isInInventory } from "@/utility/functions";
 
 type Props = {
   chiave: string;
   testoClose?: string;
   testoOpen: string;
-  dipendenza?: [string];
+  dipendenze?: [string];
   enigma?: string;
 };
 
-function Open({ testoClose, testoOpen, chiave, dipendenza, enigma }: Props) {
-  const [oggettoFromTesto, setOggettoFromTesto] = useState<TypeInventory>({});
+function Open({ testoClose, testoOpen, chiave, dipendenze, enigma }: Props) {
   const [oggettoInTesto, setOggettoInTesto] = useState(false);
   const dataFromContext = useContext(ShareContext);
 
   function apro(chiave: string) {
-    const isObjectIn = isInInventory(
-      dataFromContext?.data.inventory ? dataFromContext?.data.inventory : [],
-      chiave ? chiave : ""
-    );
+    const isObjectIn = dataFromContext?.data?.oggettoSelezionato?.id === chiave;
 
     if (isObjectIn) {
       setOggettoInTesto(true);
       if (enigma) {
-        dataFromContext?.data.setEnigmiRisolti((prevState) => [
-          ...prevState,
-          enigma,
-        ]);
+        dataFromContext?.dispatch({
+          type: "setEnigmiRisolti",
+          payload: enigma,
+        });
       }
-    } else {
-      setOggettoInTesto(false);
     }
   }
 
-  function checkDipendenza() {
-    //se la dipendenza è vuota ritorna true
-    if (!dipendenza?.length) {
+  function checkdipendenze() {
+    //se  dipendenze è vuota ritorna true
+    if (!dipendenze?.length) {
       return true;
     }
-    //se la dipendenza ha degli elementi controlla se presente tra gli enigmi risolti
-    if (dipendenza) {
-      return dipendenza.some((r) =>
-        dataFromContext?.data.enigmiRisolti.includes(r)
+    //se  dipendenze ha degli elementi controlla se presente tra gli enigmi risolti
+    if (dipendenze) {
+      return dipendenze.some((r) =>
+        dataFromContext?.data?.enigmiRisolti?.includes(r)
       );
     }
   }
-  console.log(dataFromContext?.data.inventory, "chiave");
 
-  return checkDipendenza() ? (
+  return checkdipendenze() ? (
     <>
       <span className="B" onClick={() => apro(chiave)}>
         {testoClose}
-      </span>{" "}
-      <span>{oggettoInTesto && testoOpen}</span>
+      </span>
+      <br />
+      <span>{oggettoInTesto && testoOpen}</span> <br />
     </>
   ) : (
-    <span>{""}</span>
+    <></>
   );
 }
 

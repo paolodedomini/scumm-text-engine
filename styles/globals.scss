@@ -1,0 +1,50 @@
+body {
+  background-color: black;
+  color: white;
+}
+img.roomImage {
+  object-fit: cover;
+}
+p {
+  line-height: 33px;
+  font-size: 18px;
+}
+h1 {
+  font-size: 5rem;
+  letter-spacing: 2px;
+  color: #383838;
+  margin: 0 0 2rem 0;
+}
+.inventario {
+  position: fixed;
+  z-index: 100;
+  background: white;
+  color: black;
+  right: 0;
+  top: 0;
+  padding: 24px;
+
+  li {
+    cursor: pointer;
+    &.selected {
+      text-decoration: underline;
+    }
+  }
+}
+.mainWrapper {
+  display: flex;
+  height: 100vh;
+}
+.immagine {
+  flex: 1;
+  position: relative;
+  max-width: 830px;
+}
+.testo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.innerTesto {
+}
