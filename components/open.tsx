@@ -1,5 +1,4 @@
-import { TypeInventory } from "@/utility/types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ShareContext } from "@/context/context";
 import { useContext } from "react";
 
@@ -20,6 +19,7 @@ function Open({ testoClose, testoOpen, chiave, dipendenze, enigma }: Props) {
 
     if (isObjectIn) {
       setOggettoInTesto(true);
+      // registra l'avvenuto risolvimento dell'enigma in un array, per le dipendenze
       if (enigma) {
         dataFromContext?.dispatch({
           type: "setEnigmiRisolti",
@@ -41,6 +41,19 @@ function Open({ testoClose, testoOpen, chiave, dipendenze, enigma }: Props) {
       );
     }
   }
+
+  useEffect(() => {
+    const isOggettoInInventario = dataFromContext?.data?.inventory?.some(
+      (item) => {
+        return item.id === chiave;
+      }
+    );
+    console.log("puppa sono risolto", dataFromContext);
+
+    if (isOggettoInInventario) {
+      setOggettoInTesto(true);
+    }
+  }, []);
 
   return checkdipendenze() ? (
     <>

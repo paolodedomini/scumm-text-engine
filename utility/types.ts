@@ -11,7 +11,7 @@ type TypeDataToShare = {
 };
 
 type DataApp = {
-    data: TypeDataToShare;
+    data: TypeDataToShare | null;
     dispatch: React.Dispatch<any>;
 };
 

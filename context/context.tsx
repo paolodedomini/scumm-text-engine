@@ -12,8 +12,6 @@ const ContextData = ({ children }: any) => {
   function reducer(state: any, action: { type: string; payload: any | null }) {
     switch (action.type) {
       case "setInventory": {
-        console.log("action", action.payload);
-
         const filterInventory = () => {
           if (!state?.inventory?.length) {
             return [action.payload];
@@ -24,12 +22,9 @@ const ContextData = ({ children }: any) => {
             return [...filteredInventory, action.payload];
           }
         };
-
         return { ...state, inventory: filterInventory() };
       }
       case "setOggettoSelezionato": {
-        console.log("oggetto selezionato", action.payload);
-
         return { ...state, oggettoSelezionato: action.payload };
       }
       case "setEnigmiRisolti": {
@@ -37,6 +32,9 @@ const ContextData = ({ children }: any) => {
           ...state,
           enigmiRisolti: [...state.enigmiRisolti, action.payload],
         };
+      }
+      case "setLocalStorage": {
+        return action.payload;
       }
       default: {
         return state;
@@ -50,8 +48,6 @@ const ContextData = ({ children }: any) => {
   };
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const [dataLocalStorage, setDataLocalStorage] = useState<TypeDataToShare>({});
-
   useEffect(() => {
     if (state.oggettoInInventario?.id) {
       dispatch({ type: "setInventory", payload: state.oggettoInInventario });
@@ -59,26 +55,17 @@ const ContextData = ({ children }: any) => {
   }, [state.oggettoInInventario]);
 
   useEffect(() => {
-    if (window !== undefined) {
-      const isDataInLocalStorage = localStorage.getItem("data");
-      if (isDataInLocalStorage) {
-        setDataLocalStorage(JSON.parse(isDataInLocalStorage));
-      } else {
-        setDataLocalStorage(state);
-        localStorage.setItem("data", JSON.stringify(dataLocalStorage));
-      }
+    if (state.inventory?.length) {
+      localStorage.setItem("data", JSON.stringify(state));
     }
-  }, []);
+  }, [state]);
 
   useEffect(() => {
-    setDataLocalStorage(state);
-    localStorage.setItem("data", JSON.stringify(dataLocalStorage));
-  }, [
-    dataLocalStorage.enigmiRisolti,
-    dataLocalStorage.inventory,
-    dataLocalStorage.oggettoInInventario,
-    dataLocalStorage.oggettoSelezionato,
-  ]);
+    const data = localStorage.getItem("data");
+    if (data) {
+      dispatch({ type: "setLocalStorage", payload: JSON.parse(data) });
+    }
+  }, []);
 
   //provider che wrappa i componenti che devono ricevere i dati
   return (
